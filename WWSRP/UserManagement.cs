@@ -1,12 +1,81 @@
 ﻿namespace WWSRP
 {
+	public class UserGroup
+	{
+		public string Name { get; set; }
+		public List<string> Participants { get; set; } = new List<string>();
+	}
+
 	public class UserManagement
 	{
 		private readonly Dictionary<string, string> _userData;
+		private readonly List<UserGroup> _userGroups;
 
 		public UserManagement()
 		{
 			_userData = [];
+			_userGroups = new();
+		}
+
+		// Create new group
+		public void CreateGroup(string name)
+		{
+			if (!_userGroups.Any(x => x.Name == name))
+			{
+				_userGroups.Add(new UserGroup { Name = name });
+				Console.WriteLine($"User group {name} added.");
+			}
+			else
+			{
+				Console.WriteLine($"User group {name} already exists.");
+			}
+		}
+
+		// Add user to group
+		public void AddUserToGroup(string username, string groupName)
+		{
+			var userGroup = _userGroups.FirstOrDefault(x => x.Name == groupName);
+
+			if (userGroup == null)
+			{
+				Console.WriteLine($"User group {groupName} does not exist.");
+
+				return;
+			}
+
+			if (!userGroup.Participants.Any(x => x == username))
+			{
+				userGroup.Participants.Add(username);
+
+				Console.WriteLine($"User {username} added to group {groupName}.");
+			}
+			else
+			{
+				Console.WriteLine($"User {username} already exists in group {groupName}.");
+			}
+		}
+
+		// Remove User from group
+		public void RemoveUserFromGroup(string username, string groupName)
+		{
+			var userGroup = _userGroups.FirstOrDefault(x => x.Name == groupName);
+
+			if (userGroup == null)
+			{
+				Console.WriteLine($"User group {groupName} does not exist.");
+
+				return;
+			}
+
+			if (userGroup.Participants.Any(x => x == username))
+			{
+				userGroup.Participants.Remove(username);
+				Console.WriteLine($"User {username} removed from group {groupName}.");
+			}
+			else
+			{
+				Console.WriteLine($"User {username} doesn't exists in group {groupName}.");
+			}
 		}
 
 		// Add a new user
@@ -115,7 +184,15 @@
 		{
 			try
 			{
-				SaveDataToFile(backupFileName);
+				using (StreamWriter writer = new StreamWriter(backupFileName))
+				{
+					foreach (var user in _userData)
+					{
+						writer.WriteLine($"{user.Key},{user.Value}");
+					}
+				}
+				Console.WriteLine($"User data saved to {backupFileName}.");
+
 				Console.WriteLine($"User data backed up to {backupFileName}.");
 			}
 			catch (Exception ex)
