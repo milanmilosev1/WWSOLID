@@ -1,13 +1,21 @@
 ﻿using OCP;
 
-var areaCalculator = new AreaCalculator();
+AreaCalculator areaCalculator = new AreaCalculator();
+List<IShape>? shapes = new List<IShape>();
 
-var circle = new Circle { Radius = 5 };
-var rectangle = new Rectangle { Length = 4, Width = 6 };
-var square = new Square { Side = 4 };
-var triangle = new Triangle { Base = 4, Height = 6 };
+Circle circle = new() { Radius = 10 };
+Rectangle rect = new() { Heigth = 10, Width = 20};
+Square square = new() { Side = 50 };
+Triangle triangle = new() { Base = 5, Height = 10 };
 
-Console.WriteLine($"Area of circle: {areaCalculator.CalculateArea(circle)}");
-Console.WriteLine($"Area of rectangle: {areaCalculator.CalculateArea(rectangle)}");
-Console.WriteLine($"Area of square: {areaCalculator.CalculateArea(square)}");
-Console.WriteLine($"Area of triangle: {areaCalculator.CalculateArea(triangle)}");
+shapes.Add(circle);
+shapes.Add(triangle);
+shapes.Add(square);
+shapes.Add(rect);
+
+Console.WriteLine("Circle area: " + circle.CalculateArea());
+Console.WriteLine("Rectangle area: " + rect.CalculateArea());
+Console.WriteLine("Square area; " + square.CalculateArea());
+Console.WriteLine("Triangle area: " + triangle.CalculateArea());
+
+Console.WriteLine("\nTotal area: " + areaCalculator.CalculateTotalArea(shapes));
