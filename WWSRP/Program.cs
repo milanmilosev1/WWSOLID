@@ -1,7 +1,7 @@
 ﻿using WWSRP;
 
 UserManagement userManagement = new UserManagement();
-FileHandle fileHandle = new FileHandle();
+FileHandle fileHandle = new FileHandle(userManagement);
 
 userManagement.AddUser("milan", "milan123");
 
