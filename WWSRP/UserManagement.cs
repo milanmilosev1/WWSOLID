@@ -5,34 +5,34 @@
 		private readonly List<Participant> participants = new List<Participant>();
 
 		// Add a new user
-		public bool AddUser(string username, string password)
+		public bool AddUser(Participant participantObj)
 		{
 			foreach (var participant in participants)
 			{
-				if (participant.Username == username)
+				if (participant.Username == participantObj.Username)
 				{
-					Console.WriteLine($"User with username: {username} already exists");
+					Console.WriteLine($"User with username: {participantObj.Username} already exists");
 					return false;
 				}
 			}
-			participants.Add(new Participant { Username = username, Password = password });
+			participants.Add(new Participant(participantObj.Username, participantObj.Password));
 			Console.WriteLine("User created succesfully!");
 			return true;
 		}
 
 		// Update an existing user's password
-		public bool UpdateUserPassword(string username, string newPassword)
+		public bool UpdateUserPassword(Participant participantObj)
 		{
 			foreach (var participant in participants)
 			{
-				if (participant.Username != username)
+				if (participant.Username != participantObj.Username)
 				{
 					Console.WriteLine("User not found");
 					return false;
 				}
 				else
 				{
-					participant.Password = newPassword;
+					participant.Password = participantObj.Password;
 					Console.WriteLine("Password updated succesfully!");
 					return true;
 				}
@@ -41,9 +41,9 @@
 		}
 
 		// Delete an existing user
-		public void DeleteUser(string username)
+		public void DeleteUser(Participant participantObj)
 		{
-			var user = participants.SingleOrDefault(x => x.Username == username);
+			var user = participants.SingleOrDefault(x => x.Username == participantObj.Username);
 			if (user != null)
 			{
 				participants.Remove(user);
@@ -56,11 +56,11 @@
 		}
 
 		// Authenticate a user
-		public bool AuthenticateUser(string username, string password)
+		public bool AuthenticateUser(Participant participantObj)
 		{
 			foreach (var participant in participants)
 			{
-				if (participant.Username == username && participant.Password == password)
+				if (participant.Username == participantObj.Username && participant.Password == participantObj.Password)
 				{
 					Console.WriteLine("User authenticated");
 					return true;

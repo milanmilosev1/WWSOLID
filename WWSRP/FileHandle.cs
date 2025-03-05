@@ -10,7 +10,7 @@ namespace WWSRP
     {
         public UserManagement _userManagment = new UserManagement();
 
-        public FileHandle (UserManagement userManagment)
+        public FileHandle(UserManagement userManagment)
         {
             _userManagment = userManagment;
         }
@@ -24,7 +24,7 @@ namespace WWSRP
                 {
                     foreach (var participant in _userManagment.GetAllParticipants())
                     {
-                        writer.Write($"{participant.Username},{participant.Password}");
+                        writer.Write($"{participant.Username},{participant.Password}\n");
                     }
                 }
                 Console.WriteLine($"User data saved to {fileName}.");
@@ -46,7 +46,8 @@ namespace WWSRP
                     while ((line = reader.ReadLine()) != null)
                     {
                         var parts = line.Split(',');
-                        _userManagment.AddUser(parts[0], parts[1]);
+                        Participant p = new Participant(parts[0], parts[1]);
+                        _userManagment.AddUser(p);
                     }
                 }
                 Console.WriteLine($"User data loaded from {fileName}.");

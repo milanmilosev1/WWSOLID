@@ -1,11 +1,17 @@
 ﻿using WWSRP;
 
-UserManagement userManagement = new UserManagement();
-FileHandle fileHandle = new FileHandle(userManagement);
+Participant p1 = new Participant("milan", "password");
+Participant p2 = new Participant("marko", "password");
 
-userManagement.AddUser("milan", "milan123");
+GroupManagment group1 = new GroupManagment();
+group1.CreateGroup("Group1");
 
-userManagement.AuthenticateUser("milan", "milan123");
+UserManagement user1 = new UserManagement();
+user1.AddUser(p1);
+user1.AddUser(p2);
+
+group1.AddUserToGroup(p1, "Group1");
+FileHandle fileHandle = new FileHandle(user1);
 
 fileHandle.SaveDataToFile("data.txt");
 
