@@ -9,6 +9,10 @@ namespace WWSRP
     public class ParticipantManagment
     {
         public GroupManagment _groupManagment = new GroupManagment();
+        public ParticipantManagment(GroupManagment groupManagment)
+        {
+            _groupManagment = groupManagment;
+        }
 
         public void AddUserToGroup(string username, string groupName)
         {
