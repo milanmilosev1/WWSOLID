@@ -2,12 +2,21 @@
 
 var areaCalculator = new AreaCalculator();
 
-var circle = new Circle { Radius = 5 };
-var rectangle = new Rectangle { Length = 4, Width = 6 };
-var square = new Square { Side = 4 };
-var triangle = new Triangle { Base = 4, Height = 6 };
+Shape[] shapes = new Shape[4];
 
-Console.WriteLine($"Area of circle: {areaCalculator.CalculateArea(circle)}");
-Console.WriteLine($"Area of rectangle: {areaCalculator.CalculateArea(rectangle)}");
-Console.WriteLine($"Area of square: {areaCalculator.CalculateArea(square)}");
-Console.WriteLine($"Area of triangle: {areaCalculator.CalculateArea(triangle)}");
+Circle circle = new Circle { Radius = 10 };
+Rectangle rect = new Rectangle { Heigth = 10, Width = 20};
+Square square = new Square { Side = 50 };
+Triangle triangle = new Triangle { Base = 5, Height = 10 };
+
+shapes[0] = circle;
+shapes[1] = rect;
+shapes[2] = square;
+shapes[3] = triangle;
+
+Console.WriteLine("Circle area: " + circle.Area());
+Console.WriteLine("Rectangle area: " + rect.Area());
+Console.WriteLine("Square area; " + square.Area());
+Console.WriteLine("Triangle area: " + triangle.Area());
+
+Console.WriteLine("\nTotal area: " + areaCalculator.CalculateTotalArea(shapes));

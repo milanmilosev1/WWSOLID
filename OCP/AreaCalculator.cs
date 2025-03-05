@@ -3,54 +3,58 @@
     public class AreaCalculator
     {
         // This method violates OCP, as we have to modify it to add new shapes
-        public double CalculateArea(object shape)
+        public double CalculateTotalArea(Shape[] shapes)
         {
-            if (shape is Circle)
+            double TotalArea = 0;
+            foreach(var ShapeObject in shapes)
             {
-                var circle = (Circle)shape;
-                return Math.PI * circle.Radius * circle.Radius;
+                TotalArea += ShapeObject.Area();
             }
-            else if (shape is Rectangle)
-            {
-                var rectangle = (Rectangle)shape;
-                return rectangle.Length * rectangle.Width;
-            }
-            else if (shape is Square)
-            {
-                var square = (Square)shape;
-                return square.Side * square.Side;
-            }
-            else if (shape is Triangle)
-            {
-                var triangle = (Triangle)shape;
-                return 0.5 * triangle.Base * triangle.Height;
-            }
-            else
-            {
-                throw new InvalidOperationException("Shape type not supported");
-            }
+            return TotalArea;
         }
     }
 
-    public class Circle
+    public abstract class Shape
+    {
+        public abstract double Area();
+    }
+
+    public class Circle : Shape
     {
         public double Radius { get; set; }
+        public override double Area()
+        {
+            return Math.PI * Radius * Radius;
+        }
     }
 
-    public class Rectangle
+    public class Rectangle : Shape
     {
-        public double Length { get; set; }
+        public double Heigth { get; set; }
         public double Width { get; set; }
+        public override double Area()
+        {
+            return Heigth * Width;
+        }
     }
 
-    public class Square
+    public class Square : Shape
     {
         public double Side { get; set; }
+        public override double Area()
+        {
+            return Side * Side;
+        }
     }
 
-    public class Triangle
+    public class Triangle : Shape
     {
         public double Base { get; set; }
         public double Height { get; set; }
+
+        public override double Area()
+        {
+            return 0.5 * Base * Height;
+        }
     }
 }
