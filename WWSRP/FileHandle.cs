@@ -8,7 +8,7 @@ namespace WWSRP
 {
     public class FileHandle
     {
-        public Repository _repository = new Repository();
+        public Repository _repository;
 
         public FileHandle(Repository _repository)
         {

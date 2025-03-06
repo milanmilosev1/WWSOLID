@@ -10,7 +10,7 @@ UserManagement user1 = new UserManagement();
 user1.AddUser(p1);
 user1.AddUser(p2);
 
-Repository repo1 = new Repository();
+Repository repo1 = new Repository(user1, group1);
 
 group1.AddUserToGroup(p1, "Group1");
 FileHandle fileHandle = new FileHandle(repo1);
