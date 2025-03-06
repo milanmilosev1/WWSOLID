@@ -10,8 +10,10 @@ UserManagement user1 = new UserManagement();
 user1.AddUser(p1);
 user1.AddUser(p2);
 
+Repository repo1 = new Repository();
+
 group1.AddUserToGroup(p1, "Group1");
-FileHandle fileHandle = new FileHandle(user1);
+FileHandle fileHandle = new FileHandle(repo1);
 
 fileHandle.SaveDataToFile("data.txt");
 

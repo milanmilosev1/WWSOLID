@@ -8,11 +8,11 @@ namespace WWSRP
 {
     public class FileHandle
     {
-        public UserManagement _userManagment = new UserManagement();
+        public Repository _repository = new Repository();
 
-        public FileHandle(UserManagement userManagment)
+        public FileHandle(Repository _repository)
         {
-            _userManagment = userManagment;
+            this._repository = _repository;
         }
 
         // Save user data to a file
@@ -22,7 +22,7 @@ namespace WWSRP
             {
                 using (StreamWriter writer = new StreamWriter(fileName))
                 {
-                    foreach (var participant in _userManagment.GetAllParticipants())
+                    foreach (var participant in _repository._userManagement.GetAllParticipants())
                     {
                         writer.Write($"{participant.Username},{participant.Password}\n");
                     }
@@ -47,7 +47,7 @@ namespace WWSRP
                     {
                         var parts = line.Split(',');
                         Participant p = new Participant(parts[0], parts[1]);
-                        _userManagment.AddUser(p);
+                        _repository._userManagement.AddUser(p);
                     }
                 }
                 Console.WriteLine($"User data loaded from {fileName}.");
@@ -69,7 +69,7 @@ namespace WWSRP
             {
                 using (StreamWriter writer = new StreamWriter(backupFileName))
                 {
-                    foreach (var user in _userManagment.GetAllParticipants())
+                    foreach (var user in _repository._userManagement.GetAllParticipants())
                     {
                         writer.WriteLine($"{user.Username},{user.Password}");
                     }
